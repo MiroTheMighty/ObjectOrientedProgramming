@@ -9,7 +9,7 @@ void Vector::vector_new(int n) {
 }
 
 void Vector::vector_delete() {
-	delete a;
+	delete[] a;
 }
 
 void Vector::vector_push_back(int n) {
