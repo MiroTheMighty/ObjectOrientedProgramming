@@ -30,3 +30,7 @@ void IspisVektora(std::vector<int> v) {
 	}
 	std::cout << std::endl;
 }
+
+void BrisanjeElementa(std::vector<int>& v, int n) {
+	v.erase(v.begin() + n);
+}

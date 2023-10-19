@@ -37,9 +37,12 @@ int main() {
 	for (int i = 0; i < v1.size(); i++) {
 		sum += v1[i];
 	}
-	v1.insert(v1.begin()+1, 0);
+	v1.insert(v1.begin() + 1, 0);
 	v1.push_back(sum);
 
+	IspisVektora(v1);
+
+	BrisanjeElementa(v1, 2);
 	IspisVektora(v1);
 
 	return 0;
