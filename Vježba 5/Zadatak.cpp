@@ -1,11 +1,13 @@
 #include<iostream>
 #include<algorithm>
+#include<ctime>
+#include<string>
 
 class Karta {
-	public:
-		Karta() { broj = 1; zog = " "; }
-		int broj;
-		std::string zog;
+public:
+	Karta() { broj = 1; zog = " "; }
+	int broj;
+	std::string zog;
 };
 
 class Igrac {
@@ -14,19 +16,19 @@ public:
 	std::string ime;
 	Karta karte[10];
 	int bodovi;
-	int Akuza();
+	void Akuza();
 };
 
 class Mac {
-	public:
-		Karta mac[40];
-		void GenerirajMac();
-		void PromijesajMac();
-		void PodijeliKarte(Igrac igraci[], int brojIgraca);
+public:
+	Karta mac[40];
+	void GenerirajMac();
+	void PromijesajMac();
+	void PodijeliKarte(Igrac igraci[], int brojIgraca);
 };
 
 void Mac::GenerirajMac() {
-	std::string zogovi[4] = {"Spade", "Dinari", "Bati", "Kupe"};
+	std::string zogovi[4] = { "Spade", "Dinari", "Bati", "Kupe" };
 	int br = 0;
 	int n = 1, h = 11;
 
@@ -104,35 +106,104 @@ void Mac::PromijesajMac() {
 }
 
 void Mac::PodijeliKarte(Igrac igraci[], int brojIgraca) {
+	int j = 0;
 	if (brojIgraca == 2) {
-		for (int i = 0; i < 10; i++) {
-			igraci[0].karte[i] = mac[i];
+		for (int i = 0; i < 10; i++, j++) {
+			igraci[0].karte[j] = mac[i];
 		}
-		for (int i = 10; i < 20; i++) {
-			igraci[1].karte[i] = mac[i];
+		j = 0;
+		for (int i = 10; i < 20; i++, j++) {
+			igraci[1].karte[j] = mac[i];
 		}
+		j = 0;
 	}
 	else if (brojIgraca == 4) {
-		for (int i = 0; i < 10; i++) {
-			igraci[0].karte[i] = mac[i];
+		for (int i = 0; i < 10; i++, j++) {
+			igraci[0].karte[j] = mac[i];
 		}
-		for (int i = 10; i < 20; i++) {
-			igraci[1].karte[i] = mac[i];
+		j = 0;
+		for (int i = 10; i < 20; i++, j++) {
+			igraci[1].karte[j] = mac[i];
 		}
-		for (int i = 0; i < 10; i++) {
-			igraci[2].karte[i] = mac[i];
+		j = 0;
+		for (int i = 20; i < 30; i++, j++) {
+			igraci[2].karte[j] = mac[i];
 		}
-		for (int i = 10; i < 20; i++) {
-			igraci[3].karte[i] = mac[i];
+		j = 0;
+		for (int i = 30; i < 40; i++, j++) {
+			igraci[3].karte[j] = mac[i];
 		}
+		j = 0;
 	}
 	else {
 		std::cout << "Greška u dijeljenu karta!";
 	}
 }
 
-int Igrac::Akuza() {
-	return 1;
+void Igrac::Akuza() {
+	int a = 0, b = 0, c = 0;
+	int spade = 0, dinari = 0, bati = 0, kupe = 0;
+	for (int i = 0; i < 10; i++) {
+		switch (karte[i].broj) {
+			case 1:
+				a++;
+				break;
+			case 2:
+				b++;
+				break;
+			case 3:
+				c++;
+				break;
+			default:
+				break;
+		}
+		switch (karte[i].broj) {
+		case 1:
+			if(karte[i].zog == "Spade")
+				spade++;
+			if (karte[i].zog == "Dinari")
+				dinari++;
+			if (karte[i].zog == "Bati")
+				bati++;
+			if (karte[i].zog == "Kupe")
+				kupe++;
+			break;
+		case 2:
+			if (karte[i].zog == "Spade")
+				spade++;
+			if (karte[i].zog == "Dinari")
+				dinari++;
+			if (karte[i].zog == "Bati")
+				bati++;
+			if (karte[i].zog == "Kupe")
+				kupe++;
+			break;
+		case 3:
+			if (karte[i].zog == "Spade")
+				spade++;
+			if (karte[i].zog == "Dinari")
+				dinari++;
+			if (karte[i].zog == "Bati")
+				bati++;
+			if (karte[i].zog == "Kupe")
+				kupe++;
+			break;
+		default:
+			break;
+		}
+	}
+
+	if (a == 4 || b == 4 || c == 4) {
+		bodovi += 4;
+	}
+	else if (a == 3 || b == 3 || c == 3) {
+		bodovi += 3;
+	}
+	if (spade == 3 || kupe == 3 || dinari == 3 || bati == 3) {
+		bodovi += 3;
+	}
+
+	std::cout << "Bodovi iz akuze su: " << bodovi << std::endl;
 }
 
 int main() {
@@ -152,8 +223,12 @@ int main() {
 		std::cin >> igraci[i].ime;
 	}
 
-	for (int i = 0; i < 10; i++) {
-		std::cout << igraci[0].karte[i].zog << " " <<igraci[0].karte[i].broj << std::endl;
+	for (int j = 0; j < brojIgraca; j++) {
+		std::cout << igraci[j].ime << std::endl;
+		igraci[j].Akuza();
+		for (int i = 0; i < 10; i++) {
+			std::cout << igraci[j].karte[i].zog << " " << igraci[j].karte[i].broj << std::endl;
+		}
 	}
 
 	return 0;
