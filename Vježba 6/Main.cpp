@@ -36,33 +36,32 @@ vector<VirtualPet> UnesiLjubimce(int n) {
 	return ljubimci;
 }
 
-void DodijeliLjubimce(vector<Owner>& _vlasnici, vector<vector<VirtualPet>>& _ljubimci) {
+void DodijeliLjubimce(vector<Owner>& _vlasnici, vector<vector<VirtualPet>> _ljubimci) {
 	int j = 0;
 	for (size_t i = 0; i < _vlasnici.size(); i++, j++) {
 		_vlasnici[i].ljubimci = _ljubimci[j];
 	}
 }
 
-void Igra(vector<Owner> vlasnici, int brojAkcija) {
-
-}
-
 void Akcije(vector<Owner> vlasnici) {
 	for (Owner owner : vlasnici) {
 		for (VirtualPet pet : owner.ljubimci) {
-			int rnd = rand() % 3;
-			switch (rnd) {
-			case 0:
-				pet.Hranjenje();
-				break;
-			case 1:
-				break;
-				pet.Igranje();
-			case 2:
-				break;
-				pet.Spavanje();
-			default:
-				break;
+			for (int i = 0; i < owner.brojAkcija; i++) {
+				int rnd = rand() % 3;
+				switch (rnd) {
+				case 0:
+					pet.Hranjenje();
+					cout << "Hrana";
+					break;
+				case 1:
+					pet.Igranje();
+					break;
+				case 2:
+					pet.Spavanje();
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}
@@ -103,7 +102,7 @@ int main() {
 	cin >> brojLjubimaca;
 
 	vlasnici = UnesiVlasnike(brojVlasnika, brojAkcija);
-	for (int i = 0; i < brojLjubimaca; i++) {
+	for (int i = 0; i < brojVlasnika; i++) {
 		ljubimci.push_back(UnesiLjubimce(brojLjubimaca));
 	}
 	DodijeliLjubimce(vlasnici, ljubimci);
