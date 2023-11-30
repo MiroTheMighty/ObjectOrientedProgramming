@@ -4,10 +4,9 @@
 using namespace std;
 
 class VirtualPet {
-private:
+public:
 	int glad, sreca;
 	bool spava;
-public:
 	string ime;
 	string vrsta;
 

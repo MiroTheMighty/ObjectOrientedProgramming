@@ -36,7 +36,7 @@ vector<VirtualPet> UnesiLjubimce(int n) {
 	return ljubimci;
 }
 
-void DodijeliLjubimce(vector<Owner>& _vlasnici, vector<vector<VirtualPet>> _ljubimci) {
+void DodijeliLjubimce(vector<Owner>& _vlasnici, vector<vector<VirtualPet>>& _ljubimci) {
 	int j = 0;
 	for (size_t i = 0; i < _vlasnici.size(); i++, j++) {
 		_vlasnici[i].ljubimci = _ljubimci[j];
@@ -45,6 +45,48 @@ void DodijeliLjubimce(vector<Owner>& _vlasnici, vector<vector<VirtualPet>> _ljub
 
 void Igra(vector<Owner> vlasnici, int brojAkcija) {
 
+}
+
+void Akcije(vector<Owner> vlasnici) {
+	for (Owner owner : vlasnici) {
+		for (VirtualPet pet : owner.ljubimci) {
+			int rnd = rand() % 3;
+			switch (rnd) {
+			case 0:
+				pet.Hranjenje();
+				break;
+			case 1:
+				break;
+				pet.Igranje();
+			case 2:
+				break;
+				pet.Spavanje();
+			default:
+				break;
+			}
+		}
+	}
+}
+
+void NajsretnijiLjubimac(vector<Owner> vlasnici) {
+	int max = 0, k = 0, h = 0;
+	for (Owner owner : vlasnici) {
+		for (VirtualPet pet : owner.ljubimci) {
+			if(pet.sreca > max){
+				max = pet.sreca;
+			}
+		}
+		owner.najsretnijiLjubimac = max;
+	}
+	max = vlasnici[0].najsretnijiLjubimac;
+	for (Owner owner : vlasnici) {
+		if (owner.najsretnijiLjubimac > max) {
+			max = owner.najsretnijiLjubimac;
+			h = k;
+		}
+		k++;
+	}
+	cout << vlasnici[h].ime;
 }
 
 int main() {
@@ -65,6 +107,8 @@ int main() {
 		ljubimci.push_back(UnesiLjubimce(brojLjubimaca));
 	}
 	DodijeliLjubimce(vlasnici, ljubimci);
+	Akcije(vlasnici);
+	NajsretnijiLjubimac(vlasnici);
 
 	return 0;
 }
