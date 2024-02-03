@@ -1,7 +1,0 @@
-target
-hello
-substring
-world
-target
-example
-test
